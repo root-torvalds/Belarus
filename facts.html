@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10 фактов о Беларуси</title>
+<style>
+/* --- СТРОГИЙ ДЕЛОВОЙ СТИЛЬ С УГЛАМИ 90° --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border-radius: 0 !important;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f6;
+    color: #333333;
+    line-height: 1.6;
+    padding-bottom: 60px;
+}
+.top-bar {
+            width: 100%;
+            height: 56px;
+            background: linear-gradient(135deg, #4a90e2, #50e3c2);
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+/* --- СТИЛИ ДЛЯ КНОПКИ МЕНЮ НА СТРАНИЦЕ ФАКТОВ --- */
+.menu-btn {
+    background: transparent;
+    border: 3px solid #1a4a7c; /* Стильная рамка в тон сайта */
+    color: #ffffff;            /* Делает 3 полоски чисто белыми */
+    font-size: 2rem;           /* Значительно увеличивает размер полосок */
+    line-height: 1;
+    padding: 2px 12px 6px 12px;/* Аккуратные внутренние отступы */
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.menu-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Легкое подсвечивание при наведении */
+}
+
+/* Контейнер верхней панели, чтобы кнопка стояла ровно */
+.facts-top-bar {
+    position: relative; /* Нужно для правильного позиционирования выпадающего списка */
+}
+
+        .menu-btn span { width: 100%; height: 4px; background-color: #ffffff; }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 56px;
+            left: 40px;
+            background-color: #ffffff;
+            border: 2px solid #1a4a7c;
+            border-radius: 0;
+            width: 250px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 100;
+        }
+
+        .dropdown-menu.active { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-menu ul { list-style: none; padding: 10px 0; }
+        .dropdown-menu li a { display: block; padding: 12px 20px; color: #1a4a7c; text-decoration: none; font-weight: bold; font-size: 1rem; }
+        .dropdown-menu li a:hover { background-color: #f0f4f8; color: #4a90e2; }
+        .dropdown-menu li.has-submenu { position: relative; }
+<div class="lang-text" data-lang="ru">
+    <h2>Республика Беларусь: Сердце Европы</h2>
+    <p>Республика Беларусь — это суверенное государство...</p>
+</div>
+<div class="lang-text" data-lang="en-gb" style="display: none;">
+    <h2>The Republic of Belarus: The Heart of Europe</h2>
+    <p>The Republic of Belarus is a sovereign state...</p>
+</div>
+
+        .submenu {
+            list-style: none;
+            max-height: 0;
+            overflow: hidden;
+            background-color: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            transition: max-height 0.3s ease-out;
+        }
+        .dropdown-menu li.has-submenu:hover .submenu { max-height: 150px; }
+        .submenu li a { padding: 10px 30px !important; font-size: 0.9rem !important; font-weight: normal !important; }
+
+        /* Шапка с пейзажем */
+        .hero-header {
+            width: 100%;
+            height: 380px;
+            background-image: url('belarus.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .header-container { width: 100%; max-width: 1200px; padding: 0 20px; display: flex; justify-content: center; align-items: center; }
+
+        /* Текст БЕЛАРУСЬ с маской флага */
+        .logo {
+            display: block;
+            margin: 0 auto;
+            font-size: 7rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-family: 'Times New Roman', Times, serif;
+            color: #bd1523;
+            text-align: center;
+            width: 780px;
+            background-image: url('flag.png'), url('flag.png');
+            background-size: 28% 100%, 120% 100%;
+            background-position: left center, -18% center;
+            background-repeat: no-repeat, no-repeat;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-fill-color: transparent;
+            filter: drop-shadow(3px 3px 12px rgba(0, 0, 0, 0.8));
+            will-change: transform, opacity;
+            animation: appear-up 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .logo.lang-en { width: 690px; background-size: 32% 100%, 120% 100%; background-position: left center, -22% center; }
+
+        @keyframes appear-up {
+            0% { opacity: 0; transform: translate3d(0, 8px, 0); }
+            100% { opacity: 1; transform: translate3d(0, 0, 0); }
+        }
+
+        .content { max-width: 1200px; margin: 40px auto; padding: 0 20px; text-align: center; }
+        .content h2 { font-size: 2.2rem; margin-bottom: 30px; color: #1a4a7c; font-family: 'Times New Roman', Times, serif; }
+
+        /* Интерактивная карта дорог */
+        .map-container {
+            display: flex;
+            width: 100%;
+            height: 500px;
+            border: 3px solid #1a4a7c;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            background-color: #f7f9fc;
+            margin-bottom: 20px;
+        }
+
+        .custom-map-viewport {
+            flex: 1;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            background-color: #eaeef3;
+        }
+
+        .map-scroll-layer {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: center center;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform;
+        }
+
+        .base-map-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        .map-marker {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background-color: #bd1523;
+            border: 2px solid #ffffff;
+            cursor: pointer;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+            transition: background-color 0.2s, transform 0.2s;
+            z-index: 5;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        .map-marker:hover {
+            background-color: #009640;
+            transform: translate(-50%, -50%) rotate(45deg) scale(1.3);
+        }
+
+        .pos-minsk   { top: 46%; left: 47%; }
+        .pos-mir     { top: 51%; left: 39%; }
+        .pos-nesvizh { top: 56%; left: 41%; }
+        .pos-brest   { top: 76%; left: 13%; }
+        .pos-polotsk { top: 16%; left: 52%; }
+        .pos-gomel   { top: 73%; left: 82%; }
+
+        .custom-zoom-controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 10;
+        }
+
+        .custom-zoom-controls button {
+            width: 36px;
+            height: 36px;
+            background-color: #1a4a7c;
+            color: #ffffff;
+            border: none;
+            font-size: 1.4rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .custom-zoom-controls button:hover { background-color: #bd1523; }
+
+        .map-info-box {
+            width: 350px;
+            height: 100%;
+            background-color: #ffffff;
+            border-left: 3px solid #1a4a7c;
+            padding: 30px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 6;
+        }
+
+        .map-info-box h3 {
+            font-size: 1.5rem;
+            color: #1a4a7c;
+            margin-bottom: 15px;
+            font-family: 'Times New Roman', Times, serif;
+            border-bottom: 2px solid #bd1523;
+            padding-bottom: 5px;
+        }
+
+        .map-info-box p { font-size: 1rem; color: #555; line-height: 1.5; }
+
+        /* Кнопка викторины в инфо-боксе */
+        .quiz-redirect-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 20px;
+            background-color: #1a4a7c;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .quiz-redirect-btn:hover { background-color: #bd1523; }
+
+        /* --- СТИЛИ ДЛЯ БОЛЬШОЙ ИНФОРМАЦИОННОЙ СТАТЬИ --- */
+        .info-section {
+            max-width: 1200px;
+            margin: 50px auto 20px auto;
+            padding: 40px;
+            background-color: #ffffff;
+            border: 3px solid #1a4a7c;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            text-align: justify;
+        }
+
+        .info-section h2 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 2.2rem;
+            color: #1a4a7c;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #bd1523;
+            padding-bottom: 15px;
+        }
+
+        .info-section p {
+            font-size: 1.05rem;
+            color: #333333;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            text-indent: 30px;
+        }
+.facts-top-bar {
+    width: 100%;
+    height: 56px;
+    background: linear-gradient(135deg, #4a90e2, #50e3c2);
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.back-btn {
+    background: transparent;
+    border: 3px solid #1a4a7c;
+    color: #ffffff;
+    padding: 6px 15px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #ffffff;
+    border: 3px solid #1a4a7c;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+h1 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2.8rem;
+    color: #1a4a7c;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 3px solid #bd1523;
+    padding-bottom: 15px;
+}
+.intro-text {
+    font-size: 1.1rem;
+    color: #555555;
+    text-align: justify;
+    margin: 25px 0 40px 0;
+    padding: 15px;
+    background-color: #f8fafc;
+    border-left: 4px solid #009640;
+}
+.category-section {
+    margin-bottom: 45px;
+}
+.category-title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.6rem;
+    color: #1a4a7c;
+    background-color: #eaeef3;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    border-left: 6px solid #bd1523;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.fact-card {
+    background: #ffffff;
+    border: 1px solid #dcdcdc;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: flex-start;
+}
+.fact-card:hover {
+    border-color: #1a4a7c;
+    background-color: #fcfdfe;
+    transform: translateX(5px);
+}
+.fact-number {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #bd1523;
+    margin-right: 15px;
+    min-width: 40px;
+}
+.fact-text strong {
+    color: #1a4a7c;
+}
+</style>
+</head>
+<body>
+
+<div class="facts-top-bar">
+    <!-- Кнопка-гамбургер для открытия меню -->
+    <button class="menu-btn" id="menuBtn">☰</button>
+
+    <!-- Само выпадающее меню -->
+    <div class="dropdown-menu" id="dropdownMenu">
+        <ul>
+            <!-- Ссылка на главную страницу (бывшие факты) -->
+            <li><a href="index.html" id="menuHomeLink">Главная</a></li>
+            <li><a href="#">Help Us</a></li>
+            <li class="has-submenu">
+                <a href="#" id="menuLangTitle">Выбор языка</a>
+                <ul class="submenu">
+                    <li><a href="#" data-lang="ru">Русский</a></li>
+                    <li><a href="#" data-lang="en-gb">English (GB)</a></li>
+                    <li><a href="#" data-lang="en-us">English (US)</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Мультиязычные заголовки страницы фактов -->
+    <h1 class="lang-text" data-lang="ru">10 фактов о Беларуси</h1>
+    <h1 class="lang-text" data-lang="en-gb" style="display: none;">10 Facts About Belarus</h1>
+    <h1 class="lang-text" data-lang="en-us" style="display: none;">10 Facts About Belarus</h1>
+
+    <!-- Мультиязычные вводные тексты -->
+    <p class="intro-text lang-text" data-lang="ru">
+        Беларусь — это удивительная европейская страна с богатой историей, уникальной природой и выдающимися IT-достижениями. Ниже собраны 10 самых интересных фактов о Беларуси.
+    </p>
+    <p class="intro-text lang-text" data-lang="en-gb" style="display: none;">
+        Belarus is an amazing European country with a rich history, unique nature, and outstanding IT achievements. Below are the 10 most interesting facts about Belarus.
+    </p>
+    <p class="intro-text lang-text" data-lang="en-us" style="display: none;">
+        Belarus is an amazing European country with a rich history, unique nature, and outstanding IT achievements. Below are the 10 most interesting facts about Belarus.
+    </p>
+
+    <!-- Сюда JavaScript автоматически добавляет факты, если они рендерятся из скрипта -->
+    <div id="factsContainer"></div>
+</div>
+
+<script src="style.js"></script>
+</body>
+</html>

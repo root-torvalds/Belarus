@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Викторина о Беларуси</title>
+<style>
+/* --- СТРОГИЙ ДЕЛОВОЙ СТИЛЬ С УГЛАМИ 90° --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border-radius: 0 !important;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f6;
+    color: #333333;
+    line-height: 1.6;
+    padding-bottom: 60px;
+}
+/* Верхняя панель */
+.quiz-top-bar {
+    width: 100%;
+    height: 56px;
+    background: linear-gradient(135deg, #4a90e2, #50e3c2);
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 100;
+}
+/* Кнопка меню */
+.menu-btn {
+    background: transparent;
+    border: 3px solid #1a4a7c;
+    color: #ffffff;
+    font-size: 2rem;
+    line-height: 1;
+    padding: 2px 12px 6px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+}
+.menu-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+/* Выпадающее меню */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 56px;
+    left: 40px;
+    background-color: #ffffff;
+    border: 2px solid #1a4a7c;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    z-index: 1000;
+}
+.dropdown-menu.active {
+    display: block;
+}
+.dropdown-menu ul {
+    list-style: none;
+}
+.dropdown-menu li {
+    position: relative;
+    border-bottom: 1px solid #eaeef3;
+}
+.dropdown-menu a {
+    display: block;
+    padding: 12px 24px;
+    color: #333333;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+.dropdown-menu a:hover {
+    background-color: #eaeef3;
+    color: #1a4a7c;
+}
+.has-submenu:hover .submenu {
+    display: block;
+}
+.submenu {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    background-color: #ffffff;
+    border: 2px solid #1a4a7c;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+/* Контейнер квиза */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #ffffff;
+    border: 3px solid #1a4a7c;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+h1 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2.8rem;
+    color: #1a4a7c;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 3px solid #bd1523;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+.question-counter {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #bd1523;
+    margin-bottom: 10px;
+}
+.question-text {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #1a4a7c;
+    margin-bottom: 25px;
+}
+.answers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+.answer-btn {
+    background: #ffffff;
+    border: 1px solid #dcdcdc;
+    padding: 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+    font-weight: bold;
+    color: #333333;
+}
+.answer-btn:hover {
+    border-color: #1a4a7c;
+    background-color: #fcfdfe;
+}
+.answer-btn.selected {
+    background-color: #eaeef3;
+    border-color: #1a4a7c;
+    color: #1a4a7c;
+}
+.next-btn {
+    background: #1a4a7c;
+    color: #ffffff;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    float: right;
+}
+.next-btn:hover {
+    background: #13385c;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.result-section {
+    text-align: center;
+    padding: 20px 0;
+}
+.result-section h2 {
+    color: #1a4a7c;
+    margin-bottom: 15px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2rem;
+}
+.result-score {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #bd1523;
+    margin-bottom: 10px;
+}
+.retry-btn {
+    display: inline-block;
+    background: transparent;
+    border: 3px solid #1a4a7c;
+    color: #1a4a7c;
+    padding: 10px 25px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    margin-top: 15px;
+}
+.retry-btn:hover {
+    background: #1a4a7c;
+    color: #ffffff;
+}
+</style>
+</head>
+<body>
+
+<div class="quiz-top-bar">
+    <button class="menu-btn" id="menuBtn">☰</button>
+    <div class="dropdown-menu" id="dropdownMenu">
+        <ul>
+            <li><a href="index.html" id="menuHomeLink">Главная</a></li>
+            <li><a href="#">Help Us</a></li>
+            <li class="has-submenu">
+                <a href="#" id="menuLangTitle">Выбор языка</a>
+                <ul class="submenu">
+                    <li><a href="#" data-lang="ru">Русский</a></li>
+                    <li><a href="#" data-lang="en-gb">English (GB)</a></li>
+                    <li><a href="#" data-lang="en-us">English (US)</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Викторина о Беларуси</h1>
+
+    <!-- Игровой интерфейс -->
+    <div class="quiz-section" id="quizSection">
+        <div class="question-counter" id="questionCounter">Вопрос 1 из 10</div>
+        <div class="question-text" id="questionText">Загрузка вопроса...</div>
+        <div class="answers-grid" id="answersGrid">
+            <!-- Варианты ответов вставит скрипт -->
+        </div>
+        <div class="clearfix">
+            <button class="next-btn" id="nextBtn">Дальше →</button>
+        </div>
+    </div>
+
+    <!-- Результаты -->
+    <div class="result-section" id="resultSection" style="display: none;">
+        <h2>Тест завершен!</h2>
+        <div class="result-score" id="resultScore">Вы набрали 0 из 10</div>
+        <div class="result-comment" id="resultComment">Отличный результат!</div>
+        <button class="retry-btn" id="retryBtn">Пройти еще раз</button>
+    </div>
+</div>
+
+<script src="style.js"></script>
+
+<!-- ВСТРОЕННАЯ ИСПРАВЛЕННАЯ ЛОГИКА И ВОПРОСЫ КВИЗА -->
+<script>
+const quizQuestions = {
+    'ru': [
+        { q: "На какой реке стоит Витебск?", a: ["Днепр", "Западная Двина", "Припять", "Сож"], correct: 1 },
+        { q: "Какой кулинарный символ самый известный в Беларуси?", a: ["Борщ", "Драники", "Пельмени", "Вареники"], correct: 1 },
+        { q: "Какое животное является символом Беловежской пущи?", a: ["Медведь", "Олень", "Зубр", "Волк"], correct: 2 },
+        { q: "Как часто называют Беларусь из-за обилия озёр и рек?", a: ["Зелёная", "Синеокая", "Лесная", "Чистая"], correct: 1 },
+        { q: "Какая всемирно известная компьютерная игра была создана в Беларуси?", a: ["S.T.A.L.K.E.R.", "Metro 2033", "World of Tanks", "Dota 2"], correct: 2 }
+    ],
+    'en-gb': [
+        { q: "On which river does Vitebsk stand?", a: ["Dnieper", "Western Dvina", "Pripyat", "Sozh"], correct: 1 },
+        { q: "What is the most famous culinary symbol of Belarus?", a: ["Borsch", "Draniki (Potato Pancakes)", "Pelmeni", "Vareniki"], correct: 1 },
+        { q: "Which animal is the symbol of the Bialowieza Forest?", a: ["Bear", "Deer", "European Bison", "Wolf"], correct: 2 },
+        { q: "What is Belarus often nicknamed due to its abundance of lakes and rivers?", a: ["Green Land", "Blue-Eyed Land", "Forest Land", "Clean Land"], correct: 1 },
+        { q: "Which world-famous video game was created in Belarus?", a: ["S.T.A.L.K.E.R.", "Metro 2033", "World of Tanks", "Dota 2"], correct: 2 }
+    ],
+    'en-us': [
+        { q: "On which river does Vitebsk stand?", a: ["Dnieper", "Western Dvina", "Pripyat", "Sozh"], correct: 1 },
+        { q: "What is the most famous culinary symbol of Belarus?", a: ["Borsch", "Draniki (Potato Pancakes)", "Pelmeni", "Vareniki"], correct: 1 },
+        { q: "Which animal is the symbol of the Bialowieza Forest?", a: ["Bear", "Deer", "European Bison", "Wolf"], correct: 2 },
+        { q: "What is Belarus often nicknamed due to its abundance of lakes and rivers?", a: ["Green Land", "Blue-Eyed Land", "Forest Land", "Clean Land"], correct: 1 },
+        { q: "Which world-famous video game was created in Belarus?", a: ["S.T.A.L.K.E.R.", "Metro 2033", "World of Tanks", "Dota 2"], correct: 2 }
+    ]
+};
+
+let currentQuestionIndex = 0;
+let score = 0;
+let selectedAnswerIndex = null;
+
+function getActiveLang() {
+    return localStorage.getItem('siteLanguage') || 'ru';
+}
+
+function loadQuestion() {
+    const lang = getActiveLang();
+    const questions = quizQuestions[lang] || quizQuestions['ru'];
+
+    if (currentQuestionIndex >= questions.length) {
+        showQuizResults();
+        return;
+    }
+
+    selectedAnswerIndex = null;
+    document.getElementById('quizSection').style.display = 'block';
+    document.getElementById('resultSection').style.display = 'none';
+
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // Счётчик и текст вопроса
+    const counterText = lang === 'ru' ? `Вопрос ${currentQuestionIndex + 1} из ${questions.length}` : `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+    document.getElementById('questionCounter').textContent = counterText;
+    document.getElementById('questionText').textContent = currentQuestion.q;
+
+    // Генерация кнопок вариантов
+    const answersGrid = document.getElementById('answersGrid');
+    answersGrid.innerHTML = '';
+
+    currentQuestion.a.forEach((answerText, index) => {
+        const button = document.createElement('button');
+        button.className = 'answer-btn';
+        button.textContent = answerText;
+        button.addEventListener('click', () => {
+            document.querySelectorAll('.answer-btn').forEach(btn => btn.classList.remove('selected'));
+            button.classList.add('selected');
+            selectedAnswerIndex = index;
+        });
+        answersGrid.appendChild(button);
+    });
+}
+
+function showQuizResults() {
+    const lang = getActiveLang();
+    const questions = quizQuestions[lang] || quizQuestions['ru'];
+
+    document.getElementById('quizSection').style.display = 'none';
+    document.getElementById('resultSection').style.display = 'block';
+
+    const scoreText = lang === 'ru' ? `Вы набрали ${score} из ${questions.length}` : `You scored ${score} out of ${questions.length}`;
+    const commentText = lang === 'ru' ? 'Отличный результат!' : 'Great job!';
+
+    document.getElementById('resultScore').textContent = scoreText;
+    document.getElementById('resultComment').textContent = commentText;
+}
+
+document.getElementById('nextBtn').addEventListener('click', () => {
+    const lang = getActiveLang();
+    const questions = quizQuestions[lang] || quizQuestions['ru'];
+
+    if (selectedAnswerIndex === null) {
+        alert(lang === 'ru' ? "Пожалуйста, выберите вариант ответа!" : "Please select an answer!");
+        return;
+    }
+
+    if (selectedAnswerIndex === questions[currentQuestionIndex].correct) {
+        score++;
+    }
+
+    currentQuestionIndex++;
+    loadQuestion();
+});
+
+document.getElementById('retryBtn').addEventListener('click', () => {
+    currentQuestionIndex = 0;
+    score = 0;
+    loadQuestion();
+});
+
+// Перезапуск вопроса при клике на смену языка в меню
+document.querySelectorAll('.submenu a[data-lang]').forEach(link => {
+    link.addEventListener('click', () => {
+        setTimeout(loadQuestion, 50); // Легкая задержка, чтобы style.js успел обновить localStorage
+    });
+});
+
+// Первоначальный запуск
+loadQuestion();
+</script>
+</body>
+</html>
